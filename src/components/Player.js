@@ -4,8 +4,7 @@ import BingoTable from "./BingoTable";
 import ScoreBoard from "./ScoreBoard";
 import Notice from "./Notice";
 
-export default ({nums, onGenerate}) => {
-  useEffect(() => onGenerate(), []);
+export default ({nums}) => {
   return (
     <PlayerLayout>
       <Notice message="Notice message" />

@@ -4,12 +4,9 @@ import Player from "../components/Player";
 import { numsGenerator } from "../store/modules/player";
 
 const PlayerContainer = props => {
-  const handleNumGenerate = () => {
-    props.numsGenerator();
-  };
-
   const nums = (props.playerNumber === 1) ? props.player1Nums : props.player2Nums;
-  return <Player onGenerate={handleNumGenerate} nums={nums} />;
+
+  return <Player nums={nums} />;
 };
 
 const mapStateToProps = ({ player }) => ({

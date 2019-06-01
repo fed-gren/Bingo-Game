@@ -1,11 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import Starter from "../components/Starter";
 import { start } from "../store/modules/starter";
 
 const StarterContainer = props => {
+  const dispatch = useDispatch();
   const handleStart = () => {
     props.start();
+    dispatch({ type: 'counter/NUMS_GENERATOR' });
   };
 
   const { text } = props;

@@ -3,6 +3,9 @@ const genRandomNum = MAX => {
   return Math.floor(Math.random() * MAX + 1);
 };
 
+const BINGO_ARR = ['B', 'I', 'N', 'G', 'O'];
+const initCells = BINGO_ARR.concat(BINGO_ARR, BINGO_ARR, BINGO_ARR, BINGO_ARR);
+
 // 액션 타입 정의
 const NUMS_GENERATOR = "counter/NUMS_GENERATOR";
 
@@ -11,8 +14,8 @@ export const numsGenerator = () => ({ type: NUMS_GENERATOR });
 
 // 초기 상태 정의
 const initialState = {
-  player1Nums: [],
-  player2Nums: []
+  player1Nums: [...initCells],
+  player2Nums: [...initCells]
 };
 
 // 리듀서 정의
