@@ -5,10 +5,10 @@ import "../styles/Modal.css";
 export default ({ message }) => {
   const dispatch = useDispatch();
   const gameOver = useSelector(state => state.player.gameOver);
-  console.log(gameOver);
   const handleClose = () => {
     dispatch({ type: "player/CLOSE_MODAL" });
     dispatch({ type: "modal/CLOSE" });
+    if(gameOver > 0) dispatch({ type: "player/INIT_GAME" });
   };
   return (
     <div className="modal_background" onClick={handleClose}>

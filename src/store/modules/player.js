@@ -109,6 +109,7 @@ const checkGameOver = (player1TotalScore, player2TotalScore) => {
 const NUMS_GENERATOR = "player/NUMS_GENERATOR";
 const CHECK_SELECTED_NUM = "player/CHECK_SELECTED_NUM";
 const CLOSE_MODAL = "player/CLOSE_MODAL";
+const INIT_GAME = "player/INIT_GAME";
 
 // 액션 생성 함수 정의
 export const numsGenerator = () => ({ type: NUMS_GENERATOR });
@@ -118,6 +119,7 @@ export const getSelectedNum = selectedNum => ({
   playerNumber
 });
 export const closeModal = () => ({ type: CLOSE_MODAL });
+export const initGame = () => ({ type: INIT_GAME });
 
 // 초기 상태 정의
 const initialState = {
@@ -254,12 +256,21 @@ export default (state = initialState, action) => {
         now: state.now === playerArr[0] ? playerArr[1] : playerArr[0],
         invalidOrder: false,
         player1RowBingoList: [...state.player1RowBingoList],
+        player1ColBingoList: [...state.player1ColBingoList],
+        player1CrossBingoList: [...state.player1CrossBingoList],
+        player2RowBingoList: [...state.player2RowBingoList],
+        player2ColBingoList: [...state.player2ColBingoList],
+        player2CrossBingoList: [...state.player2CrossBingoList],
       };
     case CLOSE_MODAL:
       return {
         ...state,
         invalidOrder: false
       };
+    case INIT_GAME:
+      return {
+        ...initialState
+      }
     default:
       return state;
   }
