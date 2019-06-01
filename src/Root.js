@@ -7,7 +7,8 @@ import PlayerContainer from "./containers/PlayerContainer";
 
 const Root = () => {
   const playing = useSelector(state => state.starter.playing);
-  const nowPlayer = useSelector(state => state.orderControl.now);
+  const player1Message = useSelector(state => state.player.player1Message);
+  const player2Message = useSelector(state => state.player.player2Message);
   const player1Checked = useSelector(state => state.player.player1Checked);
   const player2Checked = useSelector(state => state.player.player2Checked);
   return (
@@ -16,13 +17,13 @@ const Root = () => {
       <div className="player_container">
         <PlayerContainer
           playerNumber={1}
-          nowPlayer={playing && nowPlayer}
           checked={player1Checked}
+          message={player1Message}
           />
         <PlayerContainer
           playerNumber={2}
-          nowPlayer={playing && nowPlayer}
           checked={player2Checked}
+          message={player2Message}
           />
       </div>
     </>

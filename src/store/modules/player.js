@@ -1,5 +1,10 @@
 const NUM_BINGO_BLOCK = 25;
 const playerArr = [1, 2];
+const playerMessages = {
+  turn: `숫자를 선택하세요.`,
+  wait: `상대방의 선택을 기다리는 중입니다.`
+};
+let selectedNumChangeFlag = false;
 
 const genRandomNum = MAX => {
   return Math.floor(Math.random() * MAX + 1);
@@ -19,6 +24,9 @@ const getIndex = (arr, selectedNum) => arr.indexOf(selectedNum);
 const checkSelectedIndex = (arr, index) => {
   if (arr[index] === false) {
     arr[index] = true;
+    selectedNumChangeFlag = true;
+  } else {
+    selectedNumChangeFlag = false;
   }
 };
 
@@ -44,7 +52,7 @@ const initialState = {
   selectedNum: null,
   now: playerArr[0],
   player1Message: `빙고 한 판 할까요?`,
-  player2Message: `빙고 한 판 할까요?`,
+  player2Message: `빙고 한 판 할까요?`
 };
 
 // 리듀서 정의
@@ -68,7 +76,12 @@ export default (state = initialState, action) => {
         player1Nums: [...player1NewNums],
         player1Checked: [...initCheckedArr],
         player2Nums: [...player2NewNums],
-        player2Checked: [...initCheckedArr]
+        player2Checked: [...initCheckedArr],
+        //시작 혹은 재시작엔 무조건 1p가 먼저
+        now: playerArr[0],
+        player1Message: playerMessages.turn,
+        player2Message: playerMessages.wait,
+
       };
     case CHECK_SELECTED_NUM:
       checkSelectedIndex(
@@ -84,12 +97,15 @@ export default (state = initialState, action) => {
         selectedNum: action.selectedNum,
         player1Checked: [...state.player1Checked],
         player2Checked: [...state.player2Checked],
-        now: state.now
+        now: state.now,
       };
     case TOGGLE:
+      if(!selectedNumChangeFlag) return state;
       return {
         ...state,
         now: state.now === playerArr[0] ? playerArr[1] : playerArr[0],
+        player1Message: state.now === playerArr[0] ? playerMessages.turn : playerMessages.wait,
+        player2Message: state.now === playerArr[1] ? playerMessages.turn : playerMessages.wait,
       };
     default:
       return state;

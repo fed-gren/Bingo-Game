@@ -7,15 +7,11 @@ const PlayerContainer = ({
   playerNumber,
   player1Nums,
   player2Nums,
-  nowPlayer,
-  checked
+  checked,
+  message
 }) => {
   const nums = playerNumber === 1 ? player1Nums : player2Nums;
-  let message;
 
-  if (nowPlayer === false) message = `빙고 한 게임 할까요?`;
-  else if (nowPlayer === playerNumber) message = `숫자를 골라주세요.`;
-  else message = `상대를 기다리는 중입니다.`;
   return (
     <Player
       nums={nums}
