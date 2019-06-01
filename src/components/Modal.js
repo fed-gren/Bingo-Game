@@ -8,7 +8,10 @@ export default ({ message }) => {
   const handleClose = () => {
     dispatch({ type: "player/CLOSE_MODAL" });
     dispatch({ type: "modal/CLOSE" });
-    if(gameOver > 0) dispatch({ type: "player/INIT_GAME" });
+    if(gameOver > 0) {
+      dispatch({ type: "player/INIT_GAME" });
+      dispatch({ type: "starter/INIT" });
+    }
   };
   return (
     <div className="modal_background" onClick={handleClose}>
