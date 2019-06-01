@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import ScoreBoard from "../components/ScoreBoard";
-import {} from "../store/modules/player";
 
 const ScoreBoardContainer = props => {
   let rowBingoList, colBingoList, crossBingoList, totalScore;

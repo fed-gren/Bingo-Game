@@ -7,7 +7,6 @@ import PlayerContainer from "./containers/PlayerContainer";
 import ModalContainer from "./containers/ModalContainer";
 
 const Root = () => {
-  const playing = useSelector(state => state.starter.playing);
   const player1Message = useSelector(state => state.player.player1Message);
   const player2Message = useSelector(state => state.player.player2Message);
   const player1Checked = useSelector(state => state.player.player1Checked);

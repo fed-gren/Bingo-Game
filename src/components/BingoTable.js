@@ -24,7 +24,6 @@ export default ({ nums, checked, playerNumber }) => {
           className={blockClassNames[index]}
           key={index}
           onClick={handleClick}
-          data-key={index}
         >
           {data}
         </div>
