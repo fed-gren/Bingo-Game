@@ -3,19 +3,27 @@ const genRandomNum = MAX => {
   return Math.floor(Math.random() * MAX + 1);
 };
 
-const BINGO_ARR = ['B', 'I', 'N', 'G', 'O'];
+const BINGO_ARR = ["B", "I", "N", "G", "O"];
 const initCells = BINGO_ARR.concat(BINGO_ARR, BINGO_ARR, BINGO_ARR, BINGO_ARR);
+const initCheckedArr = [];
+for (let i = 0; i < NUM_BINGO_BLOCK; i += 1) {
+  initCheckedArr.push(false);
+}
 
 // 액션 타입 정의
 const NUMS_GENERATOR = "counter/NUMS_GENERATOR";
+const CHECK = "counter/CHECK";
 
 // 액션 생성 함수 정의
 export const numsGenerator = () => ({ type: NUMS_GENERATOR });
+export const check = () => ({ type: CHECK });
 
 // 초기 상태 정의
 const initialState = {
   player1Nums: [...initCells],
-  player2Nums: [...initCells]
+  player1Checked: [],
+  player2Nums: [...initCells],
+  player2Checked: []
 };
 
 // 리듀서 정의
@@ -37,8 +45,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         player1Nums: [...player1NewNums],
-        player2Nums: [...player2NewNums]
+        player1Checked: [...initCheckedArr],
+        player2Nums: [...player2NewNums],
+        player2Checked: [...initCheckedArr]
       };
+    case CHECK:
+      return state;
     default:
       return state;
   }
