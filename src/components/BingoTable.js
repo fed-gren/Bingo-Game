@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "../styles/BingoTable.css";
 
 export default ({ nums, checked, playerNumber }) => {
@@ -9,9 +9,11 @@ export default ({ nums, checked, playerNumber }) => {
   });
 
   const dispatch = useDispatch();
+  const now = useSelector(state => state.player.now);
 
-  const handleClick = e => {
-    let selectedNum = Number(e.target.innerText);
+  const handleClick = ({target}) => {
+    if(target.className === "bingo_block checked" && (now === playerNumber)) return;
+    let selectedNum = Number(target.innerText);
     dispatch({ type: "player/CHECK_SELECTED_NUM", selectedNum: selectedNum, playerNumber: playerNumber});
   };
 
