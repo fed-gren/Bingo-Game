@@ -13,7 +13,6 @@ export default ({ nums, checked, playerNumber }) => {
   const handleClick = e => {
     let selectedNum = Number(e.target.innerText);
     dispatch({ type: "player/CHECK_SELECTED_NUM", selectedNum: selectedNum, playerNumber: playerNumber});
-    dispatch({ type: "player/TOGGLE" });
   };
 
   return (

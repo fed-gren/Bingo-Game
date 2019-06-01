@@ -8,7 +8,6 @@ const StarterContainer = props => {
   const handleStart = () => {
     props.start();
     dispatch({ type: 'player/NUMS_GENERATOR' });
-    dispatch({ type: "player/TOGGLE" });
   };
 
   const { text } = props;

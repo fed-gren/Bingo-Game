@@ -4,6 +4,7 @@ const playerMessages = {
   turn: `숫자를 선택하세요.`,
   wait: `상대방의 선택을 기다리는 중입니다.`
 };
+
 let selectedNumChangeFlag = false;
 
 const genRandomNum = MAX => {
@@ -33,7 +34,6 @@ const checkSelectedIndex = (arr, index) => {
 // 액션 타입 정의
 const NUMS_GENERATOR = "player/NUMS_GENERATOR";
 const CHECK_SELECTED_NUM = "player/CHECK_SELECTED_NUM";
-const TOGGLE = "player/TOGGLE";
 
 // 액션 생성 함수 정의
 export const numsGenerator = () => ({ type: NUMS_GENERATOR });
@@ -42,7 +42,6 @@ export const getSelectedNum = selectedNum => ({
   selectedNum,
   playerNumber
 });
-export const toggle = () => ({ type: TOGGLE });
 
 // 초기 상태 정의
 const initialState = {
@@ -82,14 +81,13 @@ export default (state = initialState, action) => {
         //시작 혹은 재시작엔 무조건 1p가 먼저
         now: playerArr[0],
         player1Message: playerMessages.turn,
-        player2Message: playerMessages.wait,
-
+        player2Message: playerMessages.wait
       };
     case CHECK_SELECTED_NUM:
-      console.log(`player ? ${action.playerNumber}`);
-      console.log(`현재 순서와 다른 플레이어가 눌렀나요???`);
-      if(state.now !== action.playerNumber) console.log("넹");
-      else console.log("아니오. 아주 올바릅니다!");
+      if (!selectedNumChangeFlag) return state;
+      if (state.now !== action.playerNumber) {
+        return state;
+      }
       checkSelectedIndex(
         state.player1Checked,
         getIndex(state.player1Nums, action.selectedNum)
@@ -98,20 +96,21 @@ export default (state = initialState, action) => {
         state.player2Checked,
         getIndex(state.player2Nums, action.selectedNum)
       );
+
       return {
         ...state,
         selectedNum: action.selectedNum,
         player1Checked: [...state.player1Checked],
         player2Checked: [...state.player2Checked],
-        now: state.now,
-      };
-    case TOGGLE:
-      if(!selectedNumChangeFlag) return state;
-      return {
-        ...state,
-        now: state.now === playerArr[0] ? playerArr[1] : playerArr[0],
-        player1Message: state.now === playerArr[0] ? playerMessages.turn : playerMessages.wait,
-        player2Message: state.now === playerArr[1] ? playerMessages.turn : playerMessages.wait,
+        player1Message:
+          state.now === playerArr[0]
+            ? playerMessages.wait
+            : playerMessages.turn,
+        player2Message:
+          state.now === playerArr[1]
+            ? playerMessages.wait
+            : playerMessages.turn,
+        now: state.now === playerArr[0] ? playerArr[1] : playerArr[0]
       };
     default:
       return state;
