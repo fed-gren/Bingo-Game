@@ -1,9 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "../styles/Modal.css";
 
 export default ({ message }) => {
   const dispatch = useDispatch();
+  const gameOver = useSelector(state => state.player.gameOver);
+  console.log(gameOver);
   const handleClose = () => {
     dispatch({ type: "player/CLOSE_MODAL" });
     dispatch({ type: "modal/CLOSE" });

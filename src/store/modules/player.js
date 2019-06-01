@@ -47,9 +47,6 @@ const colList = [
   [4, 9, 14, 19, 24],
 ];
 
-// const cross1List = [0, 6, 12, 18, 24];
-// const cross2List = [4, 8, 12, 16, 20];
-
 const crossList = [
   [0, 6, 12, 18, 24],
   [4, 8, 12, 16, 20],
@@ -101,6 +98,13 @@ const updateTotalScore = (rowBingoList=[], colBingoList=[], crossBingoList=[]) =
   return rowBingoList.length + colBingoList.length + crossBingoList.length;
 }
 
+const checkGameOver = (player1TotalScore, player2TotalScore) => {
+  if(player1TotalScore < 5 && player2TotalScore < 5) return 0;
+  else if(player1TotalScore >= 5 && player2TotalScore < 5) return 1;
+  else if(player1TotalScore < 5 && player2TotalScore >= 5) return 2;
+  else if(player1TotalScore >= 5 && player2TotalScore >= 5) return 3;
+}
+
 // 액션 타입 정의
 const NUMS_GENERATOR = "player/NUMS_GENERATOR";
 const CHECK_SELECTED_NUM = "player/CHECK_SELECTED_NUM";
@@ -133,7 +137,8 @@ const initialState = {
   player2RowBingoList: [],
   player2ColBingoList: [],
   player2CrossBingoList: [],
-  player2TotalScore: 0
+  player2TotalScore: 0,
+  gameOver: 0,
 };
 
 // 리듀서 정의
@@ -230,6 +235,8 @@ export default (state = initialState, action) => {
         state.player2ColBingoList,
         state.player2CrossBingoList
       );
+
+      state.gameOver = checkGameOver(state.player1TotalScore, state.player2TotalScore);
 
       return {
         ...state,

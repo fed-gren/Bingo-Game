@@ -4,7 +4,6 @@ import ScoreBoard from "../components/ScoreBoard";
 import {} from "../store/modules/player";
 
 const ScoreBoardContainer = props => {
-  console.log(`props.playerNumber : ${props.playerNumber}`);
   let rowBingoList, colBingoList, crossBingoList, totalScore;
   if (props.playerNumber === 1) {
     rowBingoList = props.player1RowBingoList;
@@ -17,7 +16,7 @@ const ScoreBoardContainer = props => {
     crossBingoList = props.player2CrossBingoList;
     totalScore = props.player2TotalScore;
   }
-  console.log(rowBingoList, colBingoList, crossBingoList, totalScore);
+
   return (
     <ScoreBoard
       playerNumber={props.playerNumber}
