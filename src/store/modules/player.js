@@ -34,6 +34,7 @@ const checkSelectedIndex = (arr, index) => {
 // 액션 타입 정의
 const NUMS_GENERATOR = "player/NUMS_GENERATOR";
 const CHECK_SELECTED_NUM = "player/CHECK_SELECTED_NUM";
+const CLOSE_MODAL = "player/CLOSE_MODAL";
 
 // 액션 생성 함수 정의
 export const numsGenerator = () => ({ type: NUMS_GENERATOR });
@@ -42,6 +43,8 @@ export const getSelectedNum = selectedNum => ({
   selectedNum,
   playerNumber
 });
+export const closeModal = () => ({ type: CLOSE_MODAL });
+
 
 // 초기 상태 정의
 const initialState = {
@@ -52,7 +55,8 @@ const initialState = {
   selectedNum: null,
   now: playerArr[0],
   player1Message: `빙고 한 판 할까요?`,
-  player2Message: `빙고 한 판 할까요?`
+  player2Message: `빙고 한 판 할까요?`,
+  invalidOrder: false,
 };
 
 // 리듀서 정의
@@ -86,7 +90,10 @@ export default (state = initialState, action) => {
     case CHECK_SELECTED_NUM:
       if (!selectedNumChangeFlag) return state;
       if (state.now !== action.playerNumber) {
-        return state;
+        return {
+          ...state,
+          invalidOrder: true
+        };
       }
       checkSelectedIndex(
         state.player1Checked,
@@ -110,8 +117,14 @@ export default (state = initialState, action) => {
           state.now === playerArr[1]
             ? playerMessages.wait
             : playerMessages.turn,
-        now: state.now === playerArr[0] ? playerArr[1] : playerArr[0]
+        now: state.now === playerArr[0] ? playerArr[1] : playerArr[0],
+        invalidOrder: false
       };
+    case CLOSE_MODAL:
+      return {
+        ...state,
+        invalidOrder: false
+      }
     default:
       return state;
   }
