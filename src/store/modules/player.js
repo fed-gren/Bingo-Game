@@ -39,7 +39,8 @@ const TOGGLE = "player/TOGGLE";
 export const numsGenerator = () => ({ type: NUMS_GENERATOR });
 export const getSelectedNum = selectedNum => ({
   type: CHECK_SELECTED_NUM,
-  selectedNum
+  selectedNum,
+  playerNumber
 });
 export const toggle = () => ({ type: TOGGLE });
 
@@ -71,6 +72,7 @@ export default (state = initialState, action) => {
         randomNum = genRandomNum(NUM_BINGO_BLOCK);
         if (!player2NewNums.includes(randomNum)) player2NewNums.push(randomNum);
       }
+      selectedNumChangeFlag = true;
       return {
         ...state,
         player1Nums: [...player1NewNums],
@@ -84,6 +86,10 @@ export default (state = initialState, action) => {
 
       };
     case CHECK_SELECTED_NUM:
+      console.log(`player ? ${action.playerNumber}`);
+      console.log(`현재 순서와 다른 플레이어가 눌렀나요???`);
+      if(state.now !== action.playerNumber) console.log("넹");
+      else console.log("아니오. 아주 올바릅니다!");
       checkSelectedIndex(
         state.player1Checked,
         getIndex(state.player1Nums, action.selectedNum)

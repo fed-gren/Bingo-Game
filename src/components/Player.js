@@ -11,7 +11,11 @@ export default ({ nums, message, playerNumber, checked }) => {
     <PlayerLayout>
       <Notice message={message} />
       <div className="player_name">player {playerNumber}</div>
-      <BingoTable nums={nums} checked={checked} />
+      <BingoTable
+       nums={nums}
+       checked={checked}
+       playerNumber={playerNumber}
+      />
       <ScoreBoard />
       <ModalContainer />
     </PlayerLayout>
