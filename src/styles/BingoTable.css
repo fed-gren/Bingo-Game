@@ -4,6 +4,7 @@
   height: 500px;
   min-width: 500px;
   margin: 2rem 0;
+  grid-gap: .3rem;
 }
 
 .bingo_block {
@@ -12,10 +13,13 @@
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.8);
   cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: .5rem;
 }
 
 .bingo_block.checked {
-  background-color: rgb(255, 0, 0);
+  background-color: dodgerblue;
 }
 
 .bingo_block:hover {
