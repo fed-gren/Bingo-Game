@@ -97,6 +97,10 @@ const checkCrossBingo = (playerNums, checkedArr, bingoArr, selectedNum) => {
   });
 };
 
+const updateTotalScore = (rowBingoList=[], colBingoList=[], crossBingoList=[]) => {
+  return rowBingoList.length + colBingoList.length + crossBingoList.length;
+}
+
 // 액션 타입 정의
 const NUMS_GENERATOR = "player/NUMS_GENERATOR";
 const CHECK_SELECTED_NUM = "player/CHECK_SELECTED_NUM";
@@ -196,6 +200,12 @@ export default (state = initialState, action) => {
         action.selectedNum
       );
 
+      state.player1TotalScore = updateTotalScore(
+        state.player1RowBingoList,
+        state.player1ColBingoList,
+        state.player1CrossBingoList
+      );
+
       checkRowBingo(
         state.player2Nums,
         state.player2Checked,
@@ -214,6 +224,11 @@ export default (state = initialState, action) => {
         state.player2Checked,
         state.player2CrossBingoList,
         action.selectedNum
+      );
+      state.player2TotalScore = updateTotalScore(
+        state.player2RowBingoList,
+        state.player2ColBingoList,
+        state.player2CrossBingoList
       );
 
       return {
