@@ -1,5 +1,5 @@
 // 액션 타입 정의
-const START = 'counter/START';
+const START = 'starter/START';
 
 // 액션 생성 함수 정의
 export const start = () => ({ type: START });
@@ -11,7 +11,7 @@ const initialState = {
 }
 
 // 리듀서 정의
-export default function counter(state = initialState, action) {
+export default function starter(state = initialState, action) {
   switch(action.type) {
     case START:
       return {
