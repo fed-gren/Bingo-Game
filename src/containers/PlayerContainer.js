@@ -8,13 +8,13 @@ const PlayerContainer = props => {
     props.numsGenerator();
   };
 
-  const nums = props.nums;
-
+  const nums = (props.playerNumber === 1) ? props.player1Nums : props.player2Nums;
   return <Player onGenerate={handleNumGenerate} nums={nums} />;
 };
 
-const mapStateToProps = ({ bingoTable }) => ({
-  nums: bingoTable.nums,
+const mapStateToProps = ({ player }) => ({
+  player1Nums: player.player1Nums,
+  player2Nums: player.player2Nums,
 });
 
 const mapDispatchToProps = { numsGenerator };
