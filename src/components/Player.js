@@ -3,8 +3,6 @@ import PlayerLayout from "./PlayerLayout";
 import BingoTable from "./BingoTable";
 import ScoreBoard from "./ScoreBoard";
 import Notice from "./Notice";
-import Modal from "./Modal";
-import ModalContainer from "../containers/ModalContainer";
 
 export default ({ nums, message, playerNumber, checked }) => {
   return (
@@ -17,7 +15,6 @@ export default ({ nums, message, playerNumber, checked }) => {
        playerNumber={playerNumber}
       />
       <ScoreBoard />
-      <ModalContainer />
     </PlayerLayout>
   );
 };

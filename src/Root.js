@@ -1,9 +1,10 @@
 import React from "react";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import "./styles/reset.css";
 import "./styles/style.css";
 import Header from "./components/Header";
 import PlayerContainer from "./containers/PlayerContainer";
+import ModalContainer from "./containers/ModalContainer";
 
 const Root = () => {
   const playing = useSelector(state => state.starter.playing);
@@ -19,12 +20,13 @@ const Root = () => {
           playerNumber={1}
           checked={player1Checked}
           message={player1Message}
-          />
+        />
         <PlayerContainer
           playerNumber={2}
           checked={player2Checked}
           message={player2Message}
-          />
+        />
+        <ModalContainer />
       </div>
     </>
   );
