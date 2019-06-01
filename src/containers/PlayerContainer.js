@@ -3,15 +3,26 @@ import { connect } from "react-redux";
 import Player from "../components/Player";
 import { numsGenerator } from "../store/modules/player";
 
-const PlayerContainer = props => {
-  const nums = (props.playerNumber === 1) ? props.player1Nums : props.player2Nums;
+const PlayerContainer = ({
+  playerNumber,
+  player1Nums,
+  player2Nums,
+  nowPlayer
+}) => {
+  const nums = playerNumber === 1 ? player1Nums : player2Nums;
+  let message;
 
-  return <Player nums={nums} />;
+  if (nowPlayer === false) message = `빙고 한 게임 할까요?`;
+  else if (nowPlayer === `player${playerNumber}`)
+    message = `숫자를 골라주세요.`;
+  else message = `상대를 기다리는 중입니다.`;
+
+  return <Player nums={nums} message={message} playerNumber={playerNumber} />;
 };
 
 const mapStateToProps = ({ player }) => ({
   player1Nums: player.player1Nums,
-  player2Nums: player.player2Nums,
+  player2Nums: player.player2Nums
 });
 
 const mapDispatchToProps = { numsGenerator };

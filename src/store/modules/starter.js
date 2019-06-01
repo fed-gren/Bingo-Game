@@ -6,7 +6,8 @@ export const start = () => ({ type: START });
 
 // 초기 상태 정의
 const initialState = {
-  text: "Start"
+  text: "Start",
+  playing: false
 }
 
 // 리듀서 정의
@@ -16,6 +17,7 @@ export default function counter(state = initialState, action) {
       return {
         ...state,
         text: "Restart",
+        playing: true
       };
     default:
       return state;

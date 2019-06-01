@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PlayerLayout from "./PlayerLayout";
 import BingoTable from "./BingoTable";
 import ScoreBoard from "./ScoreBoard";
 import Notice from "./Notice";
 
-export default ({nums}) => {
+export default ({nums, message, playerNumber}) => {
   return (
     <PlayerLayout>
-      <Notice message="Notice message" />
-      <div className="player_name">player</div>
+      <Notice message={message} />
+      <div className="player_name">player {playerNumber}</div>
       <BingoTable
         nums={nums}
       />
