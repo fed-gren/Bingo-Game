@@ -7,7 +7,7 @@ const StarterContainer = props => {
   const dispatch = useDispatch();
   const handleStart = () => {
     props.start();
-    dispatch({ type: 'counter/NUMS_GENERATOR' });
+    dispatch({ type: 'player/NUMS_GENERATOR' });
   };
 
   const { text } = props;

@@ -11,8 +11,9 @@ for (let i = 0; i < NUM_BINGO_BLOCK; i += 1) {
 }
 
 // 액션 타입 정의
-const NUMS_GENERATOR = "counter/NUMS_GENERATOR";
-const CHECK = "counter/CHECK";
+const NUMS_GENERATOR = "player/NUMS_GENERATOR";
+const CHECK = "player/CHECK";
+const GET_SELECTED_NUM = "player/GET_SELECTED_NUM";
 
 // 액션 생성 함수 정의
 export const numsGenerator = () => ({ type: NUMS_GENERATOR });
