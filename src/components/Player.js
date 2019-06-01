@@ -1,11 +1,12 @@
 import React from "react";
 import PlayerLayout from "./PlayerLayout";
-import "../styles/Player.css";
+import BingoTable from "./BingoTable";
 
 export default () => {
   return (
     <PlayerLayout>
-      <div className="player">player</div>
+      <div className="player_name">player</div>
+      <BingoTable />
     </PlayerLayout>
   );
 };

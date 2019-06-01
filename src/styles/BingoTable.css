@@ -1,0 +1,21 @@
+.bingo_container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  height: 500px;
+}
+
+.bingo_block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+}
+
+.bingo_block:hover {
+  background-color: skyblue;
+}
+
+.bingo_block:active {
+  background-color: steelblue;
+}

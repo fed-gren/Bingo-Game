@@ -5,10 +5,10 @@
   border: 1px solid skyblue;
   height: 100%;
   flex: 1;
+  padding: 1.5rem;
 }
 
 .notice {
-  border-bottom: 1px solid coral;
   display: flex;
   justify-content: center;
   align-items: center;
