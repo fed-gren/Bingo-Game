@@ -106,13 +106,12 @@ const checkGameOver = (player1TotalScore, player2TotalScore) => {
 }
 
 // 액션 타입 정의
-const NUMS_GENERATOR = "player/NUMS_GENERATOR";
 const CHECK_SELECTED_NUM = "player/CHECK_SELECTED_NUM";
 const CLOSE_MODAL = "player/CLOSE_MODAL";
 const INIT_GAME = "player/INIT_GAME";
+const START_GAME = "player/START_GAME";
 
 // 액션 생성 함수 정의
-export const numsGenerator = () => ({ type: NUMS_GENERATOR });
 export const getSelectedNum = selectedNum => ({
   type: CHECK_SELECTED_NUM,
   selectedNum,
@@ -120,6 +119,7 @@ export const getSelectedNum = selectedNum => ({
 });
 export const closeModal = () => ({ type: CLOSE_MODAL });
 export const initGame = () => ({ type: INIT_GAME });
+export const startGame = () => ({ type: START_GAME });
 
 // 초기 상태 정의
 const initialState = {
@@ -141,12 +141,13 @@ const initialState = {
   player2CrossBingoList: [],
   player2TotalScore: 0,
   gameOver: 0,
+  playing: false
 };
 
 // 리듀서 정의
 export default (state = initialState, action) => {
   switch (action.type) {
-    case NUMS_GENERATOR:
+    case START_GAME:
       const player1NewNums = [];
       const player2NewNums = [];
       let randomNum = 0;
@@ -161,7 +162,7 @@ export default (state = initialState, action) => {
       }
       selectedNumChangeFlag = true;
       return {
-        ...state,
+        ...initialState,
         player1Nums: [...player1NewNums],
         player1Checked: [...initCheckedArr],
         player2Nums: [...player2NewNums],
@@ -169,7 +170,9 @@ export default (state = initialState, action) => {
         //시작 혹은 재시작엔 무조건 1p가 먼저
         now: playerArr[0],
         player1Message: playerMessages.turn,
-        player2Message: playerMessages.wait
+        player2Message: playerMessages.wait,
+        playing: true,
+
       };
     case CHECK_SELECTED_NUM:
       if (!selectedNumChangeFlag) return state;
@@ -270,6 +273,11 @@ export default (state = initialState, action) => {
     case INIT_GAME:
       return {
         ...initialState
+      }
+    case START_GAME:
+      return {
+        ...state,
+
       }
     default:
       return state;

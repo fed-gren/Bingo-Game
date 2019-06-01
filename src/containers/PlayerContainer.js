@@ -1,7 +1,6 @@
 import React from "react";
 import { connect, useSelector } from "react-redux";
 import Player from "../components/Player";
-import { numsGenerator } from "../store/modules/player";
 
 const PlayerContainer = ({
   playerNumber,
@@ -27,7 +26,7 @@ const mapStateToProps = ({ player }) => ({
   player2Nums: player.player2Nums
 });
 
-const mapDispatchToProps = { numsGenerator };
+const mapDispatchToProps = {};
 
 export default connect(
   mapStateToProps,
