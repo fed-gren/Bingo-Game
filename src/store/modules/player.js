@@ -31,6 +31,72 @@ const checkSelectedIndex = (arr, index) => {
   }
 };
 
+const rowList = [
+  [0, 1, 2, 3, 4],
+  [5, 6, 7, 8, 9],
+  [10, 11, 12, 13, 14],
+  [15, 16, 17, 18, 19],
+  [20, 21, 22, 23, 24]
+];
+
+const colList = [
+  [0, 5, 10, 15, 20],
+  [1, 6, 11, 16, 21],
+  [2, 7, 12, 17, 22],
+  [3, 8, 13, 18, 23],
+  [4, 9, 14, 19, 24],
+];
+
+// const cross1List = [0, 6, 12, 18, 24];
+// const cross2List = [4, 8, 12, 16, 20];
+
+const crossList = [
+  [0, 6, 12, 18, 24],
+  [4, 8, 12, 16, 20],
+];
+
+const checkRowBingo = (playerNums, checkedArr, bingoArr, selectedNum) => {
+  const newRowList = rowList.map(eachList => eachList.map(element => playerNums[element]));
+
+  newRowList.forEach((eachList, index) => {
+    if(eachList.includes(selectedNum)) {
+      if(eachList.every(el => checkedArr[playerNums.indexOf(el)])) {
+        if(!bingoArr.includes(index + 1)) {
+          bingoArr.push(index + 1);
+        }
+      }
+    }
+  });
+};
+
+const checkColBingo = (playerNums, checkedArr, bingoArr, selectedNum) => {
+  const newColList = colList.map(eachList => eachList.map(element => playerNums[element]));
+
+  newColList.forEach((eachList, index) => {
+    if(eachList.includes(selectedNum)) {
+      if(eachList.every(el => checkedArr[playerNums.indexOf(el)])) {
+        if(!bingoArr.includes(index + 1)) {
+          bingoArr.push(index + 1);
+        }
+      }
+    }
+  });
+};
+
+const checkCrossBingo = (playerNums, checkedArr, bingoArr, selectedNum) => {
+  const newCrossList = crossList.map(eachList => eachList.map(element => playerNums[element]));
+
+  newCrossList.forEach((eachList, index) => {
+    if(eachList.includes(selectedNum)) {
+      if(eachList.every(el => checkedArr[playerNums.indexOf(el)])) {
+        if(!bingoArr.includes(index + 1)) {
+          bingoArr.push(index + 1);
+        }
+      }
+    }
+  });
+};
+
 // 액션 타입 정의
 const NUMS_GENERATOR = "player/NUMS_GENERATOR";
 const CHECK_SELECTED_NUM = "player/CHECK_SELECTED_NUM";
@@ -45,7 +111,6 @@ export const getSelectedNum = selectedNum => ({
 });
 export const closeModal = () => ({ type: CLOSE_MODAL });
 
-
 // 초기 상태 정의
 const initialState = {
   player1Nums: [...initCells],
@@ -57,6 +122,14 @@ const initialState = {
   player1Message: `빙고 한 판 할까요?`,
   player2Message: `빙고 한 판 할까요?`,
   invalidOrder: false,
+  player1RowBingoList: [],
+  player1ColBingoList: [],
+  player1CrossBingoList: [],
+  player1TotalScore: 0,
+  player2RowBingoList: [],
+  player2ColBingoList: [],
+  player2CrossBingoList: [],
+  player2TotalScore: 0
 };
 
 // 리듀서 정의
@@ -104,6 +177,45 @@ export default (state = initialState, action) => {
         getIndex(state.player2Nums, action.selectedNum)
       );
 
+      checkRowBingo(
+        state.player1Nums,
+        state.player1Checked,
+        state.player1RowBingoList,
+        action.selectedNum
+      );
+      checkColBingo(
+        state.player1Nums,
+        state.player1Checked,
+        state.player1ColBingoList,
+        action.selectedNum
+      );
+      checkCrossBingo(
+        state.player1Nums,
+        state.player1Checked,
+        state.player1CrossBingoList,
+        action.selectedNum
+      );
+
+      checkRowBingo(
+        state.player2Nums,
+        state.player2Checked,
+        state.player2RowBingoList,
+        action.selectedNum
+      );
+
+      checkColBingo(
+        state.player2Nums,
+        state.player2Checked,
+        state.player2ColBingoList,
+        action.selectedNum
+      );
+      checkCrossBingo(
+        state.player2Nums,
+        state.player2Checked,
+        state.player2CrossBingoList,
+        action.selectedNum
+      );
+
       return {
         ...state,
         selectedNum: action.selectedNum,
@@ -118,13 +230,14 @@ export default (state = initialState, action) => {
             ? playerMessages.wait
             : playerMessages.turn,
         now: state.now === playerArr[0] ? playerArr[1] : playerArr[0],
-        invalidOrder: false
+        invalidOrder: false,
+        player1RowBingoList: [...state.player1RowBingoList],
       };
     case CLOSE_MODAL:
       return {
         ...state,
         invalidOrder: false
-      }
+      };
     default:
       return state;
   }

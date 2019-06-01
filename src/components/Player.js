@@ -1,7 +1,7 @@
 import React from "react";
 import PlayerLayout from "./PlayerLayout";
 import BingoTable from "./BingoTable";
-import ScoreBoard from "./ScoreBoard";
+import ScoreBoardContainer from "../containers/ScoreBoardContainer";
 import Notice from "./Notice";
 
 export default ({ nums, message, playerNumber, checked }) => {
@@ -14,7 +14,7 @@ export default ({ nums, message, playerNumber, checked }) => {
        checked={checked}
        playerNumber={playerNumber}
       />
-      <ScoreBoard />
+      <ScoreBoardContainer playerNumber={playerNumber}/>
     </PlayerLayout>
   );
 };
