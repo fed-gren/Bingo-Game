@@ -1,5 +1,6 @@
 import React from "react";
 import PlayerLayout from "./PlayerLayout";
+import "../styles/Player.css";
 
 export default () => {
   return (
