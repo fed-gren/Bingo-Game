@@ -15,7 +15,7 @@
 }
 
 .bingo_block.checked {
-  color: gray;
+  background-color: rgb(255, 0, 0);
 }
 
 .bingo_block:hover {

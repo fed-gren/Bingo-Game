@@ -10,6 +10,14 @@ for (let i = 0; i < NUM_BINGO_BLOCK; i += 1) {
   initCheckedArr.push(false);
 }
 
+//해당 숫자 인덱스 알아내는 함수
+const getIndex = (arr, selectedNum) => arr.indexOf(selectedNum);
+
+//선택된 인덱스 true로 수정
+const checkSelectedIndex = (arr, index) => {
+  if(arr[index] === false) arr[index] = true;
+}
+
 // 액션 타입 정의
 const NUMS_GENERATOR = "player/NUMS_GENERATOR";
 const GET_SELECTED_NUM = "player/GET_SELECTED_NUM";
@@ -51,9 +59,13 @@ export default (state = initialState, action) => {
         player2Checked: [...initCheckedArr]
       };
     case GET_SELECTED_NUM:
+      checkSelectedIndex(state.player1Checked, getIndex(state.player1Nums, action.selectedNum));
+      checkSelectedIndex(state.player2Checked, getIndex(state.player2Nums, action.selectedNum));
       return {
         ...state,
-        selectedNum: action.selectedNum
+        selectedNum: action.selectedNum,
+        player1Checked: [...state.player1Checked],
+        player2Checked: [...state.player2Checked]
       }
       return state;
     default:
