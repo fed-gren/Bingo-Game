@@ -1,0 +1,7 @@
+.score_board {
+  border-top: 1px solid skyblue;
+  flex: 1;
+  padding: 1rem .6rem;
+  margin-top: 1rem;
+  text-align: center;
+}

@@ -3,6 +3,7 @@
   grid-template-columns: auto auto auto auto auto;
   height: 500px;
   min-width: 500px;
+  margin: 2rem 0;
 }
 
 .bingo_block {
