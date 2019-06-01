@@ -1,4 +1,4 @@
-const playerArr = ["player1", "player2"];
+const playerArr = [1, 2];
 
 // 액션 타입 정의
 const TOGGLE = "orderControl/TOGGLE";
