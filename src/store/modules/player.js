@@ -12,19 +12,19 @@ for (let i = 0; i < NUM_BINGO_BLOCK; i += 1) {
 
 // 액션 타입 정의
 const NUMS_GENERATOR = "player/NUMS_GENERATOR";
-const CHECK = "player/CHECK";
 const GET_SELECTED_NUM = "player/GET_SELECTED_NUM";
 
 // 액션 생성 함수 정의
 export const numsGenerator = () => ({ type: NUMS_GENERATOR });
-export const check = () => ({ type: CHECK });
+export const getSelectedNum = selectedNum => ({ type: GET_SELECTED_NUM, selectedNum });
 
 // 초기 상태 정의
 const initialState = {
   player1Nums: [...initCells],
   player1Checked: [],
   player2Nums: [...initCells],
-  player2Checked: []
+  player2Checked: [],
+  selectedNum: null
 };
 
 // 리듀서 정의
@@ -50,7 +50,11 @@ export default (state = initialState, action) => {
         player2Nums: [...player2NewNums],
         player2Checked: [...initCheckedArr]
       };
-    case CHECK:
+    case GET_SELECTED_NUM:
+      return {
+        ...state,
+        selectedNum: action.selectedNum
+      }
       return state;
     default:
       return state;

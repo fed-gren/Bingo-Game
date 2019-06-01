@@ -14,6 +14,10 @@
   cursor: pointer;
 }
 
+.bingo_block.checked {
+  color: gray;
+}
+
 .bingo_block:hover {
   background-color: skyblue;
 }

@@ -1,16 +1,29 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import "../styles/BingoTable.css";
 
-export default ({nums, checked}) => {
+export default ({ nums, checked }) => {
   const blockClassNames = nums.map((num, index) => {
-    if(checked[index]) return "bingo_block checekd";
+    if (checked[index]) return "bingo_block checked";
     else return "bingo_block";
   });
-  console.log(blockClassNames);
+
+  const dispatch = useDispatch();
+
+  const handleClick = e => {
+    let selectedNum = Number(e.target.innerText);
+    dispatch({ type: "player/GET_SELECTED_NUM", selectedNum: selectedNum});
+  };
+
   return (
     <div className="bingo_container">
       {nums.map((data, index) => (
-        <div className={blockClassNames[index]} key={index}>
+        <div
+          className={blockClassNames[index]}
+          key={index}
+          onClick={handleClick}
+          data-key={index}
+        >
           {data}
         </div>
       ))}
