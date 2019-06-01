@@ -1,0 +1,6 @@
+.player_layout {
+  box-sizing: border-box;
+  border: 1px solid skyblue;
+  height: 100%;
+  flex: 1;
+}
