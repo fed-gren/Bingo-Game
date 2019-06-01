@@ -1,6 +1,17 @@
 .player_layout {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   border: 1px solid skyblue;
   height: 100%;
   flex: 1;
+}
+
+.notice {
+  border-bottom: 1px solid coral;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  padding: .7rem 0;
 }
