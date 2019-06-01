@@ -7,6 +7,7 @@
   height: 100%;
   flex: 1;
   padding: 1.5rem;
+  position: relative;
 }
 
 .notice {
