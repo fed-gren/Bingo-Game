@@ -9,7 +9,7 @@ export default ({
 }) => {
   return (
     <div className="score_board">
-      <p>빙고 완성 목록</p>
+      <p>빙고 완성 점수 : {totalScore}</p>
       <div className="bingo_list">
         <div className="row_list">
           <p className="">가로</p>
@@ -39,7 +39,6 @@ export default ({
             ))}
         </div>
       </div>
-      <div className="total_score">빙고 완성 갯수 : {totalScore}</div>
     </div>
   );
 };
