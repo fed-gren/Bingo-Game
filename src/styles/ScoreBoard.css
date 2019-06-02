@@ -23,9 +23,3 @@
   display: flex;
   flex-direction: column;
 }
-
-.row_bingo,
-.col_bingo,
-.cross_bingo {
-  margin: .3rem 0;
-}
