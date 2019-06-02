@@ -1,9 +1,12 @@
-const NUM_BINGO_BLOCK = 25;
-const playerArr = [1, 2];
-const playerMessages = {
-  turn: `숫자를 선택하세요.`,
-  wait: `상대방의 선택을 기다리는 중입니다.`
-};
+import {
+  PLAYER_MESSAGES,
+  NUM_BINGO_BLOCK,
+  PLAYER_NUM_ARR,
+  BINGO_ARR,
+  ROW_BINGO_ARR,
+  COL_BINGO_ARR,
+  CROSS_BINGO_ARR
+} from "../../constant/constant";
 
 let selectedNumChangeFlag = false;
 
@@ -11,7 +14,6 @@ const genRandomNum = MAX => {
   return Math.floor(Math.random() * MAX + 1);
 };
 
-const BINGO_ARR = ["B", "I", "N", "G", "O"];
 const initCells = BINGO_ARR.concat(BINGO_ARR, BINGO_ARR, BINGO_ARR, BINGO_ARR);
 const initCheckedArr = [];
 for (let i = 0; i < NUM_BINGO_BLOCK; i += 1) {
@@ -31,34 +33,15 @@ const checkSelectedIndex = (arr, index) => {
   }
 };
 
-const rowList = [
-  [0, 1, 2, 3, 4],
-  [5, 6, 7, 8, 9],
-  [10, 11, 12, 13, 14],
-  [15, 16, 17, 18, 19],
-  [20, 21, 22, 23, 24]
-];
-
-const colList = [
-  [0, 5, 10, 15, 20],
-  [1, 6, 11, 16, 21],
-  [2, 7, 12, 17, 22],
-  [3, 8, 13, 18, 23],
-  [4, 9, 14, 19, 24],
-];
-
-const crossList = [
-  [0, 6, 12, 18, 24],
-  [4, 8, 12, 16, 20],
-];
-
 const checkRowBingo = (playerNums, checkedArr, bingoArr, selectedNum) => {
-  const newRowList = rowList.map(eachList => eachList.map(element => playerNums[element]));
+  const newRowList = ROW_BINGO_ARR.map(eachList =>
+    eachList.map(element => playerNums[element])
+  );
 
   newRowList.forEach((eachList, index) => {
-    if(eachList.includes(selectedNum)) {
-      if(eachList.every(el => checkedArr[playerNums.indexOf(el)])) {
-        if(!bingoArr.includes(index + 1)) {
+    if (eachList.includes(selectedNum)) {
+      if (eachList.every(el => checkedArr[playerNums.indexOf(el)])) {
+        if (!bingoArr.includes(index + 1)) {
           bingoArr.push(index + 1);
         }
       }
@@ -67,12 +50,14 @@ const checkRowBingo = (playerNums, checkedArr, bingoArr, selectedNum) => {
 };
 
 const checkColBingo = (playerNums, checkedArr, bingoArr, selectedNum) => {
-  const newColList = colList.map(eachList => eachList.map(element => playerNums[element]));
+  const newColList = COL_BINGO_ARR.map(eachList =>
+    eachList.map(element => playerNums[element])
+  );
 
   newColList.forEach((eachList, index) => {
-    if(eachList.includes(selectedNum)) {
-      if(eachList.every(el => checkedArr[playerNums.indexOf(el)])) {
-        if(!bingoArr.includes(index + 1)) {
+    if (eachList.includes(selectedNum)) {
+      if (eachList.every(el => checkedArr[playerNums.indexOf(el)])) {
+        if (!bingoArr.includes(index + 1)) {
           bingoArr.push(index + 1);
         }
       }
@@ -81,12 +66,14 @@ const checkColBingo = (playerNums, checkedArr, bingoArr, selectedNum) => {
 };
 
 const checkCrossBingo = (playerNums, checkedArr, bingoArr, selectedNum) => {
-  const newCrossList = crossList.map(eachList => eachList.map(element => playerNums[element]));
+  const newCrossList = CROSS_BINGO_ARR.map(eachList =>
+    eachList.map(element => playerNums[element])
+  );
 
   newCrossList.forEach((eachList, index) => {
-    if(eachList.includes(selectedNum)) {
-      if(eachList.every(el => checkedArr[playerNums.indexOf(el)])) {
-        if(!bingoArr.includes(index + 1)) {
+    if (eachList.includes(selectedNum)) {
+      if (eachList.every(el => checkedArr[playerNums.indexOf(el)])) {
+        if (!bingoArr.includes(index + 1)) {
           bingoArr.push(index + 1);
         }
       }
@@ -94,16 +81,20 @@ const checkCrossBingo = (playerNums, checkedArr, bingoArr, selectedNum) => {
   });
 };
 
-const updateTotalScore = (rowBingoList=[], colBingoList=[], crossBingoList=[]) => {
+const updateTotalScore = (
+  rowBingoList = [],
+  colBingoList = [],
+  crossBingoList = []
+) => {
   return rowBingoList.length + colBingoList.length + crossBingoList.length;
-}
+};
 
 const checkGameOver = (player1TotalScore, player2TotalScore) => {
-  if(player1TotalScore < 5 && player2TotalScore < 5) return 0;
-  else if(player1TotalScore >= 5 && player2TotalScore < 5) return 1;
-  else if(player1TotalScore < 5 && player2TotalScore >= 5) return 2;
-  else if(player1TotalScore >= 5 && player2TotalScore >= 5) return 3;
-}
+  if (player1TotalScore < 5 && player2TotalScore < 5) return 0;
+  else if (player1TotalScore >= 5 && player2TotalScore < 5) return 1;
+  else if (player1TotalScore < 5 && player2TotalScore >= 5) return 2;
+  else if (player1TotalScore >= 5 && player2TotalScore >= 5) return 3;
+};
 
 // 액션 타입 정의
 const CHECK_SELECTED_NUM = "player/CHECK_SELECTED_NUM";
@@ -128,9 +119,9 @@ const initialState = {
   player2Nums: [...initCells],
   player2Checked: [],
   selectedNum: null,
-  now: playerArr[0],
-  player1Message: `빙고 한 판 할까요?`,
-  player2Message: `빙고 한 판 할까요?`,
+  now: PLAYER_NUM_ARR[0],
+  player1Message: PLAYER_MESSAGES.init,
+  player2Message: PLAYER_MESSAGES.init,
   invalidOrder: false,
   player1RowBingoList: [],
   player1ColBingoList: [],
@@ -168,11 +159,10 @@ export default (state = initialState, action) => {
         player2Nums: [...player2NewNums],
         player2Checked: [...initCheckedArr],
         //시작 혹은 재시작엔 무조건 1p가 먼저
-        now: playerArr[0],
-        player1Message: playerMessages.turn,
-        player2Message: playerMessages.wait,
-        playing: true,
-
+        now: PLAYER_NUM_ARR[0],
+        player1Message: PLAYER_MESSAGES.turn,
+        player2Message: PLAYER_MESSAGES.wait,
+        playing: true
       };
     case CHECK_SELECTED_NUM:
       if (!selectedNumChangeFlag) return state;
@@ -241,7 +231,10 @@ export default (state = initialState, action) => {
         state.player2CrossBingoList
       );
 
-      state.gameOver = checkGameOver(state.player1TotalScore, state.player2TotalScore);
+      state.gameOver = checkGameOver(
+        state.player1TotalScore,
+        state.player2TotalScore
+      );
 
       return {
         ...state,
@@ -249,21 +242,24 @@ export default (state = initialState, action) => {
         player1Checked: [...state.player1Checked],
         player2Checked: [...state.player2Checked],
         player1Message:
-          state.now === playerArr[0]
-            ? playerMessages.wait
-            : playerMessages.turn,
+          state.now === PLAYER_NUM_ARR[0]
+            ? PLAYER_MESSAGES.wait
+            : PLAYER_MESSAGES.turn,
         player2Message:
-          state.now === playerArr[1]
-            ? playerMessages.wait
-            : playerMessages.turn,
-        now: state.now === playerArr[0] ? playerArr[1] : playerArr[0],
+          state.now === PLAYER_NUM_ARR[1]
+            ? PLAYER_MESSAGES.wait
+            : PLAYER_MESSAGES.turn,
+        now:
+          state.now === PLAYER_NUM_ARR[0]
+            ? PLAYER_NUM_ARR[1]
+            : PLAYER_NUM_ARR[0],
         invalidOrder: false,
         player1RowBingoList: [...state.player1RowBingoList],
         player1ColBingoList: [...state.player1ColBingoList],
         player1CrossBingoList: [...state.player1CrossBingoList],
         player2RowBingoList: [...state.player2RowBingoList],
         player2ColBingoList: [...state.player2ColBingoList],
-        player2CrossBingoList: [...state.player2CrossBingoList],
+        player2CrossBingoList: [...state.player2CrossBingoList]
       };
     case CLOSE_MODAL:
       return {
@@ -273,12 +269,11 @@ export default (state = initialState, action) => {
     case INIT_GAME:
       return {
         ...initialState
-      }
+      };
     case START_GAME:
       return {
-        ...state,
-
-      }
+        ...state
+      };
     default:
       return state;
   }
